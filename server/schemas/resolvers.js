@@ -1,19 +1,17 @@
-const { User, Book } = require('../models');
-const { signToken } = require('../utils/auth');
-const { AuthenticationError } = require('apollo-server-express');
+const { User } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
-          .populate('savedbooks');
+          .select('-__v -password');
 
         return userData;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw AuthenticationError;
     },
   },
   Mutation: {
@@ -21,13 +19,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
         if (!user) {
-            throw new AuthenticationError('Incorrect credentials');
+            throw AuthenticationError;
         }
       
         const correctPw = await user.isCorrectPassword(password);
 
         if (!correctPw) {
-            throw new AuthenticationError('Incorrect credentials');
+            throw AuthenticationError;
         }
 
         const token = signToken(user);
@@ -44,26 +42,26 @@ const resolvers = {
           const updatedBooks = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { savedBooks: bookToSave } },
-            { new: true }
-          ).populate('savedBooks');
+            { new: true, runValidators: true}
+          );
 
             return updatedBooks;
         }
 
-        throw new AuthenticationError('You need to be logged in!');
+        throw AuthenticationError;
     },
     removeBook: async (parent, { bookId }, context) => {
         if (context.user) {
           const updatedBooks = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedBooks: { bookId } } },
+            { $pull: { savedBooks: { bookId: bookId } } },
             { new: true }
-          ).populate('savedBooks');
+          );
 
             return updatedBooks;
         }
 
-        throw new AuthenticationError('You need to be logged in!');
+        throw AuthenticationError;
     },
     },
 };
