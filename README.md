@@ -1,104 +1,44 @@
-# Book-search-engine
+# Book-search-engine ![Github LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
 Module 21 Challenge: MERN stack
 
-### Back-End Specifications
+## Description 
 
-You’ll need to complete the following tasks in each of these back-end files:
+My task for this challenge was to do the following :set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API, Modify the existing authentication middleware so that it works in the context of a GraphQL API, Create an Apollo Provider so that requests can communicate with an Apollo Server and Deploy the application to Render.
 
-* `auth.js`: Update the auth middleware function to work with the GraphQL API.
+## Table of Contents
 
-* `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Credits](#credits)
+  * [License](#license)
+  * [Test](#test)
+  * [Questions](#questions)
 
-* `Schemas` directory:
+## Installation 
 
-  * `index.js`: Export your typeDefs and resolvers.
+The following commands will help install the necessary packages for this application. 
+* `npm install` to install the required dependencies. 
 
-  * `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
+## Usage 
 
-  **Hint**: Use the functionality in the `user-controller.js` as a guide.
-
-  * `typeDefs.js`: Define the necessary `Query` and `Mutation` types:
-
-    * `Query` type:
-
-      * `me`: Which returns a `User` type.
+Once all packages are properly installed. Use command `npm run dev` to start the server in localhost.
   
-    * `Mutation` type:
+![Alt text]![alt text](<client/images/MERN screenshot.png>)
 
-      * `login`: Accepts an email and password as parameters; returns an `Auth` type.
+[Render deployment]()
 
-      * `addUser`: Accepts a username, email, and password as parameters; returns an `Auth` type.
+## Credits
 
-      * `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. (Look into creating what's known as an `input` type to handle all of these parameters!)
+Starter code provided by UC Davis Coding Bootcamp.
 
-      * `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
+## License 
 
-    * `User` type:
+This repository is covered under the [MIT License](https://opensource.org/licenses/MIT).
 
-      * `_id`
+## Test
 
-      * `username`
+N/A
 
-      * `email`
+## Questions 
 
-      * `bookCount`
-
-      * `savedBooks` (This will be an array of the `Book` type.)
-
-    * `Book` type:
-
-      * `bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
-
-      * `authors` (An array of strings, as there may be more than one author.)
-
-      * `description`
-
-      * `title`
-
-      * `image`
-
-      * `link`
-
-    * `Auth` type:
-
-      * `token`
-
-      * `user` (References the `User` type.)
-
-### Front-End Specifications
-
-You'll need to create the following front-end files:
-
-* `queries.js`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
-
-* `mutations.js`:
-
-  * `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
-
-  * `ADD_USER` will execute the `addUser` mutation.
-
-  * `SAVE_BOOK` will execute the `saveBook` mutation.
-
-  * `REMOVE_BOOK` will execute the `removeBook` mutation.
-
-Additionally, you’ll need to complete the following tasks in each of these front-end files:
-
-* `App.jsx`: Create an Apollo Provider to make every request work with the Apollo Server.
- 
-* `SearchBooks.jsx`:
-
-  * Use the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function instead of the `saveBook()` function imported from the `API` file.
-
-  * Make sure you keep the logic for saving the book's ID to state in the `try...catch` block!
-
-* `SavedBooks.jsx`:
-
-  * Remove the `useEffect()` Hook that sets the state for `UserData`.
-
-  * Instead, use the `useQuery()` Hook to execute the `GET_ME` query on load and save it to a variable named `userData`.
-
-  * Use the `useMutation()` Hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from `API` file. (Make sure you keep the `removeBookId()` function in place!)
-
-* `SignupForm.jsx`: Replace the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
-
-* `LoginForm.jsx`: Replace the `loginUser()` functionality imported from the `API` file with the `LOGIN_USER` mutation functionality.
+If you have any questions about this repository, please contact me at neilzulueta@gmail.com. GitHub: https://github.com/neilsenzulueta
