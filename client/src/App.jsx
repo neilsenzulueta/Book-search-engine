@@ -5,6 +5,10 @@ import { setContext } from '@apollo/client/link/context';
 
 import Navbar from './components/Navbar';
 
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -15,9 +19,9 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
-});
+//const httpLink = createHttpLink({
+  //uri: 'http://localhost:3001/graphql',
+//});
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
@@ -26,7 +30,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={ client }>
+    <ApolloProvider client={client}>
       <Navbar />
       <Outlet />
     </ApolloProvider>
